@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>tab延迟优化，click不存在问题</title>
+		<style>
+			html,body,ul,li,p{
+				margin: 0;
+				padding: 0;
+			}
+			ul,li{
+				list-style: none;
+			}
+			.tab{
+				width: 500px;
+				height: 300px;
+				margin: 20px auto;
+			}
+			.tab .tab-header{
+				overflow: hidden;
+			}
+			.tab .tab-header li{
+				width: 80px;
+				height: 50px;
+				background-color: red;
+				float: left;
+				margin-right: 5px;
+			}
+			.tab .tab-header li.active{
+				background-color: #ccc;
+			}
+			.tab .tab-body{
+				height: 250px;
+				overflow: hidden;
+				background-color: #ccc;
+			}
+			.tab .tab-body div{
+				height: 250px;
+			}
+		</style>
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				var $tab = $('.tab'),
+				    $lis = $tab.find('.tab-header li'),
+					$divs = $tab.find('.tab-body > div');
+				$lis.click(function(){  //mouseover 悬停显示,存在问题,用户体验不好
+					var $this =  $(this),
+						index = $this.index();  //index()	从匹配元素中搜索给定元素
+					$this.addClass('active').siblings('.active').removeClass('active');
+					$divs.eq(index).show().siblings(':visible').hide();
+					});
+				
+			});
+		</script>
+	</head>
+	<body>
+		<div class="tab">
+			<ul class="tab-header">
+				<li class="active">aaa</li>
+				<li>bbb</li>
+				<li>ccc</li>
+			</ul>
+			<div class="tab-body">
+				<div>111</div>
+				<div>222</div>
+				<div>333</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<title>简单图片切换效果01</title>
+	<style>
+	html,body,ul,li,p{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			background-color: pink;
+		}
+		ul,li{
+			list-style: none;
+		}
+		.img-slider{
+			width: 590px;
+			height: 470px;
+			background-color: #fff;
+			margin: 20px auto;
+			overflow: hidden;
+			position: relative;
+		}
+		.img-slider li{
+			width: 590px;
+			height: 470px;
+		}
+		.img-slider .left-arrow a.prev,.right-arrow a.next{
+			position: absolute;
+			top: 50%;
+			left: 0;
+			width: 24px;
+			height: 40px;
+			background-color: #333;
+			margin-top: -25px;
+			opacity: 0.4;
+			/* filter: alpha(opacity=60); */
+			display: none;
+		} 
+		.left-arrow .prev .icons{
+			position: relative;
+			width: 20px;
+			height: 21px;
+			display: inline-block;
+			background: url(../img/ico-1.png) no-repeat 0 -420px;
+			top: 10px;
+			left: 3px;
+		}
+		.right-arrow .next .icons{
+			position: relative;
+			width: 20px;
+			height: 21px;
+			display: inline-block;
+			background: url(../img/ico-1.png) no-repeat 0 -383px;
+			top: 10px;
+			left: 3px;
+		}
+		.img-slider:hover .left-arrow a{
+			display: block;
+		}
+		.img-slider:hover .right-arrow a{
+			display: block;
+		}
+		.img-slider .right-arrow a.next{
+			left: auto;
+			right: 0;
+		}
+	</style>
+	<script src="js/jquery-3.4.1.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+			$('.img-slider a').click(function(){
+				var $this = $(this),
+					$ul = $('.img-slider ul');
+					
+				if($this.hasClass('next')){
+					$ul.append($ul.find('li:first'));
+				}else{
+					$ul.prepend($ul.find('li:last'));
+				}
+			});
+		});
+	</script>
+	</head>
+	<body>
+		<div class="img-slider">
+			<ul>
+				<li><a href=""><img src="../img/a.webp"></a></li>
+				<li><a href=""><img src="../img/b.webp"></a></li>
+				<li><a href=""><img src="../img/c.webp"></a></li>
+				<li><a href=""><img src="../img/d.jpg"></a></li>
+				<li><a href=""><img src="../img/e.webp"></a></li>
+				<li><a href=""><img src="../img/f.webp"></a></li>
+				<li><a href=""><img src="../img/g.webp"></a></li>
+				<li><a href=""><img src="../img/h.webp"></a></li>
+			</ul>
+			<div class="left-arrow">
+				<a href="javascript:;" class="prev">
+					<i class="icons"></i>
+				</a>
+			</div>
+			<div class="right-arrow">
+				<a href="javascript:;" class="next">
+					<i class="icons"></i>
+				</a>
+			</div>
+		</div>
+	</body>
+</html>

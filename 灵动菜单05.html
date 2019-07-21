@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>灵动菜单</title>
+		<style>
+			html,body,ul,li,p{
+				margin: 0;
+				padding: 0;
+			}
+			ul,li{
+				list-style: none;
+			}
+			.header{
+				height: 300px;
+				background-color: red;
+			}
+			.menu{
+				height: 50px;
+				background-color: blue;
+				width: 100%;
+			}
+			.menu.fixed{
+				position: fixed;
+				top: 0;
+			}
+			.body{
+				height: 1000px;
+				background-color: pink;
+			}
+			.body.fixed{
+				margin-top: 50px;
+			}
+		</style>
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<script>
+			$(function(){
+				$(window).scroll(function(){
+					var $menu = $('.menu'),
+					    top = $('.header').height(),  // height()设置或返回被选元素的高度
+						scrollTop = $(this).scrollTop();  //scrollTop()	设置或返回被选元素的垂直滚动条位置。 HTML方法
+						console.log(top + '-' + scrollTop); //找临界位置
+						
+						if (scrollTop > top) {
+							$menu.add('.body').addClass('fixed');   // add() 方法把元素添加到已存在的元素组合中。遍历方法
+						} else{
+							$menu.add('.body').removeClass('fixed');
+						}
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="header"></div>
+		<div class="menu"></div>
+		<div class="body">
+			<ul>
+				<li>item1</li>
+				<li>item2</li>
+				<li>item3</li>
+				<li>item4</li>
+				<li>item5</li>
+				<li>item6</li>
+				<li>item7</li>
+				<li>item8</li>
+				<li>item9</li>
+				<li>item10</li>
+			</ul>
+		</div>
+	</body>
+</html>

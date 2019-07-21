@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>简单图片轮播精简版</title>
+	<style>
+	html,body,ul,ol,li,p{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			background-color: #ccc;
+		}
+		ul,li{
+			list-style: none;
+		}
+		.img-slider{
+			width: 590px;
+			height: 470px;
+			background-color: #fff;
+			margin: 20px auto;
+			overflow: hidden;
+			position: relative;
+		}
+		.img-slider ul{
+			width: 4720px;
+		}
+		.img-slider ul li{
+			width: 590px;
+			height: 470px;
+			float: left;
+		}
+		.img-slider .left-arrow a.prev,.right-arrow a.next{
+			position: absolute;
+			top: 50%;
+			left: 0;
+			width: 24px;
+			height: 40px;
+			background-color: #333;
+			margin-top: -25px;
+			opacity: 0.4;
+			/* filter: alpha(opacity=60); */
+			display: none;
+		}
+		.left-arrow .prev .icons{
+			position: relative;
+			width: 20px;
+			height: 21px;
+			display: inline-block;
+			background: url(../img/ico-1.png) no-repeat 0 -420px;
+			top: 10px;
+			left: 3px;
+		}
+		.left-arrow .prev .icons:hover{
+			
+		}
+		.right-arrow .next .icons{
+			position: relative;
+			width: 20px;
+			height: 21px;
+			display: inline-block;
+			background: url(../img/ico-1.png) no-repeat 0 -383px;
+			top: 10px;
+			left: 3px;
+		}
+		.img-slider:hover .left-arrow a{
+			display: block;
+		}
+		.img-slider:hover .right-arrow a{
+			display: block;
+		}
+		.img-slider .right-arrow a.next{
+			left: auto;
+			right: 0;
+		}
+		.img-slider ol{
+			width: 128px;
+			height: 10px;
+			background-color: red;
+			position: absolute;
+			bottom: 10px;
+			left: 50%;
+			margin-left: -64px;
+			padding: 2px 1px;
+			border-radius: 7px;
+			background-color: #fff;
+			/* opacity: 0.5; */
+		}
+		.img-slider ol li{
+			width: 10px;
+			height: 10px;
+			background-color: #ccc;
+			float: left;
+			margin:0 3px ;
+			border-radius: 5px;
+		}
+		.img-slider ol li.active{
+			background-color: green;
+		}
+	</style>
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			var $slider = $('.img-slider'),
+				$ul = $('.img-slider ul'),
+				$ol = $('.img-slider ol')
+			    len = $ul.find('li').length
+				width  = $ul.find('li').width();
+				ulWidth = len * width;
+				$ul.width(ulWidth);
+				//for循环  生成下面的li
+			$('.img-slider a').click(function(){
+				var $this = $(this),
+					currIndex = $ol.find('li.active').index();
+				if ( $('ul:animated').length > 0){ //解决快速点击鼠标切换的问题,不管点击多少下,只执行一次
+					return;
+				}
+				if ( $this.hasClass('next') ) {
+					currIndex++;
+					currIndex = ( currIndex == len ) ? 0 :currIndex;   //第二种方式
+				} else{
+					currIndex--;
+					currIndex = (currIndex < 0 ) ? len-1 :currIndex; //第二种优化方式
+				}
+					$ol.find('li').eq(currIndex).trigger('click');
+				});
+			$ol.find('li').click(function(){
+				var $this = $(this),
+				index = $this.index();
+				 $ul.animate({marginLeft: -width*index},200,function(){    //增加滑动效果
+					 $this.addClass('active').siblings('.active').removeClass('active');  //这一行添加之后,绿色块点哪去哪,如果在函数内,先执行动画,然后再变绿色按钮,如果在函数上边,则相反.
+				  });   //第二种方式  动画效果
+			});
+			
+			$slider
+			     .mouseover(function(){
+					clearInterval(timer);
+				})
+				 .mouseout(function(){
+					runner();
+				})
+			function runner (){  //使用函数多次使用
+				timer = setInterval(function(){  //定时轮播
+					$('.img-slider a.next').trigger('click');
+				},1000);
+			}
+			runner();
+		});
+	</script>
+</head>
+<body>
+	<div class="img-slider">
+		<ul>
+			<li><img src="../img/a.webp"></li>
+			<li><img src="../img/b.webp"></li>
+			<li><img src="../img/c.webp"></li>
+			<li><img src="../img/d.jpg"></li>
+			<li><img src="../img/e.webp"></li>
+			<li><img src="../img/f.webp"></li>
+			<li><img src="../img/g.webp"></li>
+			<li><img src="../img/h.webp"></li>
+		</ul>
+		<div class="left-arrow">
+			<a href="javascript:;" class="prev">
+				<i class="icons"></i>
+			</a>
+		</div>
+		<div class="right-arrow">
+			<a href="javascript:;" class="next">
+				<i class="icons"></i>
+			</a>
+		</div>
+		<ol>
+			<li class="active"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ol>
+		
+	</div>
+</body>
+</html>

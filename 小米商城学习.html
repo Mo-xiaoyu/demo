@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>小米商城图片切换</title>
+		<style type="text/css">
+			html,body,ul,ol,li,a{
+				margin: 0;
+				padding: 0;
+			}
+			ul,li{
+				list-style: none;
+			}
+			body{
+				background-color: pink;
+			}
+			.img-slider{
+				width: 1226px;
+				height: 460px;
+				background-color: #fff;
+				margin: 100px auto;
+				overflow: hidden;
+				position: relative;
+			}
+			.img-slider .nav-menu{
+				width: 234px;
+				height: 460px;
+				background-color: rgba(0,0,0,0.6);
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			.img-slider .img-scroll{
+				width: 6130px;
+			}
+			.img-slider .img-scroll li{
+				width: 1226px;
+				float: left;
+			}
+			.img-slider img{
+				width: 1226px;
+			}
+			.btn .prev,.next{
+				width: 41px;
+				height: 69px;
+				/* background-color: red; */
+				position: absolute;
+				right: 0;
+				top: 50%;
+				margin-top: -34.5px;
+			}
+			.btn .prev{
+				left: 234px;
+				right: auto;
+			}
+			.btn .prev .icon{
+				display: inline-block;
+				width: 41px;
+				height: 69px;
+				background: url(../img/icon-slides.png) no-repeat -84px 0;
+			}
+			.btn .prev .icon:hover{
+				background: url(../img/icon-slides.png) no-repeat 0 0;
+			}
+			.btn .next .icon{
+				display: inline-block;
+				width: 41px;
+				height: 69px;
+				background: url(../img/icon-slides.png) no-repeat -123px 0;
+			}
+			.btn .next .icon:hover{
+				background: url(../img/icon-slides.png) no-repeat -42px 0;
+			}
+			.img-slider ol{
+				width: 100px;
+				height: 10px;
+				/* background-color: red; */
+				position: absolute;
+				right: 30px;
+				bottom: 20px;
+			}
+			.img-slider ol li{
+				float: left;
+				width: 6px;
+				height: 6px;
+				border: 2px solid rgb(255,255,255,0.4);
+				background-color: #757575;
+				border-radius: 10px;
+				margin: 0 5px;
+				
+				overflow: hidden;
+			}
+			.img-slider ol li:hover{
+				border: 2px solid rgba(0,0,0,0.4);
+				background-color: rgb(255,255,255,0.4);
+			}
+			.img-slider ol li.active{
+				border: 2px solid rgba(0,0,0,0.4);
+				background-color: rgb(255,255,255,0.4);
+			}
+		</style>
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<script>
+			//1.先将页面写好; 2.写tab切换; 3.tab能切了之后,在按照动画写; 4.左右两边能点之后,在做轮播
+			//5.设定时间走,在设置定时器
+			
+			$(document).ready(function(){
+				var $slider = $('.img-slider'),
+					$ul = $slider.find('.img-scroll'),
+					$ol = $slider.find('ol'),
+					len = $ul.find('li').length,
+					width = $ul.find('li').width(),
+					timer;
+					ulWidth = width * len;
+					// console.log(ulWidth);
+					$ul.width(ulWidth);
+					
+					$('.btn div').click(function(){
+						var $this = $(this),
+							currIndex = $ol.find('li.active').index();
+						// console.log(currIndex);
+						
+						
+						    $dh = $('ul:animated');
+						 // console.log($dh.length);//判断是否有动画执行
+						if ($dh.length > 0 ) {
+							return;
+						}
+						if ($this.hasClass('next')) {  //trigger触发点击事件
+							currIndex++;
+							currIndex = (currIndex == len) ? 0 : currIndex;
+							// if(currIndex == len){
+							// 	currIndex = 0;
+							// }
+							$ol.find('li').eq(currIndex).trigger('click');
+							}
+						else{
+							currIndex--;
+							currIndex = (currIndex < 0) ? len-1 : currIndex;
+							$ol.find('li').eq(currIndex).trigger('click');
+						}
+						});
+
+						$ol.find('li').click(function(){
+							var $this = $(this),
+								index = $this.index();
+								$this.addClass('active').siblings('.active').removeClass('active');
+								$ul.animate({marginLeft:-width * index},250,function(){
+								});
+								// console.log(index);
+						});
+						
+						$slider
+						.mouseover(function(){
+							clearInterval(timer);
+						})
+						.mouseout(function(){
+							runner();
+						})
+						function runner(){
+							timer = setInterval(function(){
+								$('.btn .next').trigger('click');
+							},1500);
+						}
+						runner();
+			});
+		</script>
+	</head>
+	<body>
+		<div class="img-slider">
+			<div class="nav-menu">
+				
+			</div>
+			
+			<ul class="img-scroll">
+				<li>
+					<a href="javascript:;">
+						<img src="../img/1.jpg">
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<img src="../img/2.jpg">
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<img src="../img/3.jpg">
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<img src="../img/4.jpg">
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<img src="../img/5.jpg">
+					</a>
+				</li>
+			</ul>
+			
+			<div class="btn">
+				<div class="next">
+					<i class="icon"></i>
+				</div>
+				<div class="prev">
+					<i class="icon"></i>
+				</div>
+			</div>
+			<ol>
+				<li class="active"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ol>
+		</div>
+		<div>123</div>
+	</body>
+</html>

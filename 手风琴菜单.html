@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>手风琴菜单</title>
+		<style type="text/css">
+			html,body,ul,li,p{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				background-color: yellow;
+			}
+			ul,li{
+				list-style: none;
+			}
+			.shoufq{
+				width: 300px;
+				background-color: #fff;
+				margin: 50px auto;
+				border-radius: 3px;
+
+			}
+			.shoufq ul{
+				display: none;
+			}
+			.shoufq ul li{
+				height: 35px;
+				line-height: 35px;
+				background-color: #999;
+			}
+			.shoufq ul li:hover{
+				background-color: red;
+			}
+			.shoufq .title{
+				background-color: green;
+				color: #fff;
+				margin-bottom: 1px;
+				text-indent: 10px;
+			}
+			.shoufq .title p{
+				height: 35px;
+				line-height: 35px;
+				cursor: pointer; 
+			}
+			.red{
+				color: red;
+			}
+		</style>
+		
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				var $title  =$('.title');
+				$title.click(function(){
+					var $this = $(this);
+					$this
+					   .find('p').addClass('red')
+					   .end()
+					   .find('ul').slideToggle()
+					   .end()
+					   .siblings()
+					   .find('p').removeClass('red')
+					   .end()
+					   .find('ul').slideUp()
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="shoufq">
+			<div class="title">
+				<p>CSS课程</p>
+				<ul>
+					<li>课程1</li>
+					<li>课程2</li>
+					<li>课程3</li>
+					<li>课程4</li>
+					<li>课程5</li>
+				</ul>
+			</div>
+			<div class="title">
+				<p>JS课程</p>
+				<ul>
+					<li>课程1</li>
+					<li>课程2</li>
+					<li>课程3</li>
+					<li>课程4</li>
+					<li>课程5</li>
+				</ul>
+			</div>
+			<div class="title">
+				<p>HTML课程</p>
+				<ul>
+					<li>课程1</li>
+					<li>课程2</li>
+					<li>课程3</li>
+					<li>课程4</li>
+					<li>课程5</li>
+				</ul>
+			</div>
+			<div class="title">
+				<p>CSS3课程</p>
+				<ul>
+					<li>课程1</li>
+					<li>课程2</li>
+					<li>课程3</li>
+					<li>课程4</li>
+					<li>课程5</li>
+				</ul>
+			</div>
+			<div class="title">
+				<p>jQuery课程</p>
+				<ul>
+					<li>课程1</li>
+					<li>课程2</li>
+					<li>课程3</li>
+					<li>课程4</li>
+					<li>课程5</li>
+				</ul>
+			</div>
+		</div>
+		
+		
+		
+		<script>
+			
+			
+			
+			
+		</script>
+	</body>
+</html>

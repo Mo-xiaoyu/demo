@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>滑动停靠</title>
+		<style>
+			html,body,ul,li,p{
+				margin: 0;
+				padding: 0;
+			}
+			ul,li{
+				list-style: none;
+			}
+			.sideMenu{
+				width: 50px;
+				height: 100px;
+				background-color: red;
+				position: fixed;
+				right: -50px;   /*  yingcang -50*/
+				top: 50%;
+				margin-top: -50px;
+			}
+			/* .sideMenu.r0{    //第一种方式用到
+				right: 0;
+			} */
+			.sideMenu .trigger{
+				width: 20px;
+				height: 20px;
+				background-color: blue;
+				position: absolute;
+				top: 50%;
+				margin-top: -10px;
+				left: -20px;
+				cursor: pointer;
+				
+			}
+		</style>
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('.trigger').click(function(){
+					var $sideMenu = $('.sideMenu');
+					// $sideMenu.toggleClass('r0')  //简单切换  第一种方式
+					if ($sideMenu.hasClass('r0')){  //滑动效果 先判断else
+						$sideMenu.animate({right:-50},500).removeClass('r0');
+					}else{
+						$sideMenu.animate({right:0},500).addClass('r0');  //为什么没必要要css里的r0了？
+					}   //样式有时候没必要去定义它,样式作为一个标识
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="sideMenu"> <!-- 内容 -->
+			<div class="trigger"></div> <!-- 外面按钮 -->
+			<p>111</p>
+			<p>222</p>
+			<p>333</p>
+		</div>
+	</body>
+</html>
